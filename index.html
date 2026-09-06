@@ -214,6 +214,18 @@
       </div>
     </section>
 
+    <!-- Live ES Module Import Demonstration -->
+    <section style="margin-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; margin-bottom: 0.2rem;">⚡ Live ES Module Import Demonstration</h2>
+      <p style="color: #666; margin-bottom: 1rem;">
+        Directly executes NewVexorion library classes imported in browser:
+        <code>import { CSVParser, DataSearcher, DataAggregator } from './src/browser.js'</code>
+      </p>
+      <div id="liveModuleOutput" class="portal-card" style="background: #f8fafc; font-family: monospace; font-size: 0.85rem; color: #1e293b;">
+        Loading live ES module execution...
+      </div>
+    </section>
+
     <!-- Quick Links -->
     <section style="margin-top: 2.5rem;">
       <h3>🔗 Quick Links</h3>
@@ -233,5 +245,40 @@
       </p>
     </footer>
   </div>
+
+  <script type="module">
+    import { CSVParser, DataSearcher, DataAggregator } from './src/browser.js';
+    
+    try {
+      const sampleCSV = `name,role,team,score
+Alice Johnson,Engineer,Alpha,95
+Bob Smith,Analyst,Beta,88
+Diana Prince,Team Lead,Gamma,98`;
+
+      const parser = new CSVParser({ delimiter: ',', hasHeader: true });
+      const parsed = parser.parse(sampleCSV);
+      const searcher = new DataSearcher(parsed.data);
+      const searchResult = searcher.search('Lead');
+      const avgScore = DataAggregator.average(parsed.data, 'score');
+
+      const container = document.getElementById('liveModuleOutput');
+      if (container) {
+        container.innerHTML = `
+          <div style="color: #059669; font-weight: bold; font-size: 1rem; margin-bottom: 8px;">
+            ✓ Direct ES Module Import Verified &amp; Running!
+          </div>
+          <div style="margin-bottom: 4px;">• <strong>CSVParser:</strong> Successfully parsed ${parsed.rowCount} rows.</div>
+          <div style="margin-bottom: 4px;">• <strong>DataSearcher:</strong> Query 'Lead' matched: <code>${searchResult[0].name} (${searchResult[0].role} - ${searchResult[0].team})</code></div>
+          <div>• <strong>DataAggregator:</strong> Calculated average score: <strong>${avgScore.toFixed(1)}</strong></div>
+        `;
+      }
+    } catch (err) {
+      console.error('Module load error:', err);
+      const container = document.getElementById('liveModuleOutput');
+      if (container) {
+        container.textContent = 'ES Module execution status: ' + err.message;
+      }
+    }
+  </script>
 </body>
 </html>
