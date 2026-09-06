@@ -31,7 +31,7 @@
     "web:enhanced": "cd web && npx live-server --port=8081 index-enhanced.html",
     "lint": "eslint src/**/*.js server.js",
     "format": "prettier --write src/**/*.js server.js",
-    "build": "vite build && npm run test:full",
+    "build": "vite build && cp -r web dist/ && npm run test:full",
     "docker:build": "docker build -t newvexorion .",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",

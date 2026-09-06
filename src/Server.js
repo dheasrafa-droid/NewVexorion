@@ -65,8 +65,11 @@ class Server {
     this.#app.use(express.urlencoded({ extended: true, limit: '50mb' }))
     
     // Static files
+    const rootPath = join(__dirname, '..')
     const webPath = join(__dirname, '../web')
+    this.#app.use('/web', express.static(webPath))
     this.#app.use(express.static(webPath))
+    this.#app.use(express.static(rootPath))
     
     // API routes prefix
     this.#app.use('/api', this.#createApiRouter())
@@ -86,8 +89,13 @@ class Server {
       })
     })
 
-    // Root
+    // Root - Demo Portal
     this.#app.get('/', (req, res) => {
+      res.sendFile(join(__dirname, '../index.html'))
+    })
+
+    // Basic Viewer
+    this.#app.get('/basic', (req, res) => {
       res.sendFile(join(__dirname, '../web/index.html'))
     })
 
@@ -99,6 +107,16 @@ class Server {
     // Dashboard UI
     this.#app.get('/dashboard', (req, res) => {
       res.sendFile(join(__dirname, '../web/dashboard.html'))
+    })
+
+    // Assets UI
+    this.#app.get('/assets-view', (req, res) => {
+      res.sendFile(join(__dirname, '../web/assets.html'))
+    })
+
+    // API Docs UI
+    this.#app.get('/api-docs', (req, res) => {
+      res.sendFile(join(__dirname, '../web/api.html'))
     })
   }
 

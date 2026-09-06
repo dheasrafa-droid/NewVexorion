@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asset Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .asset-item {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid #e94560;
+    }
+    .asset-item .filename {
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .asset-item .size {
+      color: #888;
+      font-size: 0.8rem;
+    }
+    .asset-item .type {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 0.1rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📁 Asset Viewer</h1>
+    <p>Files from the <code>assets/</code> folder (requires server running).</p>
+    <div id="assetList" class="asset-grid">
+      <p>Loading assets...</p>
+    </div>
+    <a href="/" class="btn back-link">← Back to Portal</a>
+  </div>
+  <script>
+    fetch('/api/assets')
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById('assetList');
+        container.innerHTML = '';
+        if (data.results) {
+          for (const [path, info] of Object.entries(data.results)) {
+            const div = document.createElement('div');
+            div.className = 'asset-item';
+            div.innerHTML = `
+              <div class="filename">${path}</div>
+              <div class="size">${info.size ? (info.size/1024).toFixed(1) + ' KB' : ''}</div>
+              <div class="type">${info.type || 'unknown'}</div>
+            `;
+            container.appendChild(div);
+          }
+        } else {
+          container.innerHTML = '<p>No assets found or API not available.</p>';
+        }
+      })
+      .catch(() => {
+        document.getElementById('assetList').innerHTML = '<p>Error loading assets. Make sure server is running.</p>';
+      });
+  </script>
+</body>
+</html>

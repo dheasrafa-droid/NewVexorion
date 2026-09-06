@@ -1,18 +1,237 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NewVexorion - Data Viewer</title>
-    <meta name="description" content="A high-performance, fluent JavaScript data processing, transformation, validation, and asset pipeline library with interactive data viewer." />
-    <meta property="og:title" content="NewVexorion - Data Viewer" />
-    <meta property="og:description" content="A high-performance, fluent JavaScript data processing, transformation, validation, and asset pipeline library with interactive data viewer." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewVexorion – Demo Portal</title>
+  <meta name="description" content="Data processing library for Vexorion member data – interactive demo portal and tools." />
+  <meta property="og:title" content="NewVexorion – Demo Portal" />
+  <meta property="og:description" content="Data processing library for Vexorion member data – interactive demo portal and tools." />
+  <!-- Main stylesheet from repo -->
+  <link rel="stylesheet" href="web/style.css" />
+  <!-- Additional portal-specific styles -->
+  <style>
+    /* ---- Portal specific overrides ---- */
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .portal-card {
+      background: var(--card-bg, #ffffff);
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .portal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+    }
+    .portal-card h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: var(--primary, #1a1a2e);
+    }
+    .portal-card p {
+      color: #555;
+      line-height: 1.5;
+      margin: 0.5rem 0 1rem 0;
+    }
+    .badge {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.6rem 0 1rem 0;
+    }
+    .features span {
+      background: #f0f2f5;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #333;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.6rem;
+      background: var(--primary, #1a1a2e);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: var(--secondary, #2d2d44);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary, #1a1a2e);
+      border: 2px solid var(--primary, #1a1a2e);
+    }
+    .btn-outline:hover {
+      background: var(--primary, #1a1a2e);
+      color: #fff;
+    }
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+    .quick-links li a {
+      color: var(--primary, #1a1a2e);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .quick-links li a:hover {
+      border-bottom-color: #e94560;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      text-align: center;
+      color: #888;
+      border-top: 1px solid #eee; /* subtle line, not intrusive */
+    }
+    /* responsive tweaks */
+    @media (max-width: 600px) {
+      .portal-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🚀 NewVexorion</h1>
+      <p style="font-size: 1.1rem; color: #555;">
+        Data Processing Library – Demo Portal
+      </p>
+      <p>
+        <a href="https://github.com/dheasrafa-droid/NewVexorion" target="_blank">GitHub</a>
+        &bull;
+        <a href="https://new-vexorion-git-main-ercs-projects-09b1de49.vercel.app/" target="_blank">Live Demo</a>
+      </p>
+    </header>
 
+    <!-- Main Demo Grid -->
+    <section>
+      <h2 style="font-size: 1.8rem; margin-bottom: 0.2rem;">📱 Demos &amp; Tools</h2>
+      <p style="color: #666; margin-bottom: 0;">Choose an application below to explore different features.</p>
+
+      <div class="portal-grid">
+        <!-- Basic Viewer -->
+        <div class="portal-card">
+          <h3>📊 Basic Viewer</h3>
+          <p>Simple table view of Vexorion member data. Load, filter by date, and reset.</p>
+          <div class="features">
+            <span>CSV</span>
+            <span>Filter</span>
+            <span>Responsive</span>
+          </div>
+          <a href="web/index.html" class="btn">Open Basic Viewer</a>
+        </div>
+
+        <!-- Enhanced Viewer -->
+        <div class="portal-card">
+          <h3>🔍 Enhanced Viewer</h3>
+          <p>Advanced viewer with live search, export to CSV/JSON, and view statistics.</p>
+          <div class="features">
+            <span>Search</span>
+            <span>Export</span>
+            <span>Stats</span>
+          </div>
+          <a href="web/index-enhanced.html" class="btn">Open Enhanced Viewer</a>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="portal-card">
+          <h3>📈 Server Dashboard</h3>
+          <p>Real‑time monitoring of server status, connections, sessions, and live logs via WebSocket.</p>
+          <div class="features">
+            <span>WebSocket</span>
+            <span>Live Logs</span>
+            <span>Metrics</span>
+          </div>
+          <a href="web/dashboard.html" class="btn">Open Dashboard</a>
+        </div>
+
+        <!-- Asset Viewer -->
+        <div class="portal-card">
+          <h3>📁 Asset Viewer</h3>
+          <p>Browse and preview files from the <code>assets/</code> folder with metadata and content preview.</p>
+          <div class="features">
+            <span>Assets</span>
+            <span>Preview</span>
+            <span>File List</span>
+          </div>
+          <a href="web/assets.html" class="btn">Open Asset Viewer</a>
+        </div>
+
+        <!-- API Reference -->
+        <div class="portal-card">
+          <h3>📡 API Reference</h3>
+          <p>Interactive API documentation and testing console for all backend endpoints.</p>
+          <div class="features">
+            <span>REST</span>
+            <span>WebSocket</span>
+            <span>Test</span>
+          </div>
+          <a href="web/api.html" class="btn">Open API Reference</a>
+        </div>
+
+        <!-- Extra: Run Examples (link to run pages) -->
+        <div class="portal-card">
+          <h3>⚙️ CLI Examples</h3>
+          <p>Run processing scripts directly from the terminal. See the <code>example/</code> folder.</p>
+          <div class="features">
+            <span>Node.js</span>
+            <span>Scripts</span>
+            <span>Automation</span>
+          </div>
+          <a href="https://github.com/dheasrafa-droid/NewVexorion/tree/main/example" target="_blank" class="btn btn-outline">View on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section style="margin-top: 2.5rem;">
+      <h3>🔗 Quick Links</h3>
+      <ul class="quick-links">
+        <li><a href="https://github.com/dheasrafa-droid/NewVexorion" target="_blank">📦 GitHub Repository</a></li>
+        <li><a href="https://new-vexorion-git-main-ercs-projects-09b1de49.vercel.app/" target="_blank">🌐 Live Demo</a></li>
+        <li><a href="/health">🩺 Health Check</a></li>
+        <li><a href="/api">📡 API Root</a></li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 NewVexorion &mdash; Prasetyo Bayu Widodo</p>
+      <p style="font-size: 0.85rem; margin-top: 0.3rem;">
+        Built with ❤️ using Node.js, Express, WebSocket, and vanilla JS.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

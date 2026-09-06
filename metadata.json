@@ -1,6 +1,6 @@
 {
   "name": "NewVexorion",
-  "description": "A high-performance, fluent JavaScript data processing, transformation, validation, and asset pipeline library with interactive data viewer.",
+  "description": "A high-performance, fluent JavaScript data processing, transformation, validation, and asset pipeline library with interactive demo portal.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .endpoint {
+      background: #f8f9fa;
+      padding: 1.2rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #1a1a2e;
+    }
+    .endpoint .method {
+      font-weight: 700;
+      color: #e94560;
+      margin-right: 1rem;
+    }
+    .endpoint .path {
+      font-family: 'Courier New', monospace;
+      background: #e9ecef;
+      padding: 0.2rem 0.8rem;
+      border-radius: 4px;
+    }
+    .endpoint .desc {
+      color: #555;
+      margin-top: 0.4rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📡 API Reference</h1>
+    <p>Available endpoints (server must be running).</p>
+
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/process</span>
+      <div class="desc">Process a data file. Body: <code>{ inputFile, outputFile, patterns }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/assets</span>
+      <div class="desc">List and process assets folder. Body: <code>{ assetsPath, extensions }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/search</span>
+      <div class="desc">Search within a session. Body: <code>{ sessionId, term, fields }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/export</span>
+      <div class="desc">Export data. Body: <code>{ sessionId, format, filename }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/transform</span>
+      <div class="desc">Transform data. Body: <code>{ data, operation, options }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/aggregate</span>
+      <div class="desc">Aggregate data. Body: <code>{ data, operation, key }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">POST</span> <span class="path">/api/validate</span>
+      <div class="desc">Validate data against rules. Body: <code>{ data, rules }</code></div>
+    </div>
+    <div class="endpoint">
+      <span class="method">GET</span> <span class="path">/health</span>
+      <div class="desc">Health check – returns server status.</div>
+    </div>
+    <div class="endpoint">
+      <span class="method">WS</span> <span class="path">ws://localhost:8080</span>
+      <div class="desc">WebSocket for real‑time updates. Send <code>{ type: 'get:status' }</code></div>
+    </div>
+
+    <a href="/" class="btn back-link">← Back to Portal</a>
+  </div>
+</body>
+</html>
