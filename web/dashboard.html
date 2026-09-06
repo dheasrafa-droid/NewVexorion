@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewVexorion - Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a1a;
+      color: #fff;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-size: 28px;
+      color: #e94560;
+    }
+    .header .status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #00ff88;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #2a2a4a;
+    }
+    .card h3 {
+      color: #e94560;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card .value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .card .label {
+      color: #888;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .logs {
+      background: #0a0a1a;
+      border-radius: 12px;
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      border: 1px solid #2a2a4a;
+    }
+    .log-entry {
+      padding: 4px 0;
+      border-bottom: 1px solid #1a1a2e;
+      color: #aaa;
+    }
+    .log-entry .time {
+      color: #666;
+      margin-right: 10px;
+    }
+    .log-entry .level-info { color: #4fc3f7; }
+    .log-entry .level-error { color: #e94560; }
+    .log-entry .level-warn { color: #ffa726; }
+    .log-entry .level-success { color: #66bb6a; }
+    .api-section {
+      margin-top: 20px;
+    }
+    .api-endpoint {
+      background: #0a0a1a;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #2a2a4a;
+    }
+    .api-endpoint .method {
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .method-get { background: #4fc3f7; color: #000; }
+    .method-post { background: #66bb6a; color: #000; }
+    .method-delete { background: #e94560; color: #fff; }
+    .api-endpoint .path {
+      color: #fff;
+      font-family: 'Courier New', monospace;
+    }
+    .api-endpoint .desc {
+      color: #888;
+      font-size: 13px;
+    }
+    .btn {
+      background: #e94560;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: #c73a52;
+      transform: translateY(-2px);
+    }
+    .btn-success {
+      background: #66bb6a;
+    }
+    .btn-success:hover {
+      background: #4caf50;
+    }
+    .flex { display: flex; gap: 10px; flex-wrap: wrap; }
+    .mt-10 { margin-top: 10px; }
+    .mt-20 { margin-top: 20px; }
+    
+    /* Scrollbar */
+    .logs::-webkit-scrollbar {
+      width: 6px;
+    }
+    .logs::-webkit-scrollbar-track {
+      background: #0a0a1a;
+    }
+    .logs::-webkit-scrollbar-thumb {
+      background: #2a2a4a;
+      border-radius: 3px;
+    }
+    .logs::-webkit-scrollbar-thumb:hover {
+      background: #3a3a5a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1>🚀 NewVexorion Dashboard</h1>
+        <p style="color: #888; margin-top: 5px;">
+          <a href="https://github.com/dheasrafa-droid/NewVexorion" target="_blank" style="color: #4fc3f7;">
+            github.com/dheasrafa-droid/NewVexorion
+          </a>
+        </p>
+      </div>
+      <div class="status">
+        <span class="status-dot"></span>
+        <span id="statusText">Running</span>
+        <span style="color: #888; margin-left: 10px;" id="uptime">Uptime: 0s</span>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid">
+      <div class="card">
+        <h3>📊 Connections</h3>
+        <div class="value" id="connections">0</div>
+        <div class="label">Active WebSocket clients</div>
+      </div>
+      <div class="card">
+        <h3>💾 Sessions</h3>
+        <div class="value" id="sessions">0</div>
+        <div class="label">Active processing sessions</div>
+      </div>
+      <div class="card">
+        <h3>🧠 Memory</h3>
+        <div class="value" id="memory">0 MB</div>
+        <div class="label">Heap used</div>
+      </div>
+      <div class="card">
+        <h3>⏱️ Uptime</h3>
+        <div class="value" id="uptimeDisplay">0s</div>
+        <div class="label">Server running time</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="card" style="margin-bottom: 20px;">
+      <h3>🎮 Controls</h3>
+      <div class="flex">
+        <button class="btn" onclick="processData()">▶️ Process Data</button>
+        <button class="btn btn-success" onclick="processAssets()">📁 Process Assets</button>
+        <button class="btn" onclick="clearSessions()">🗑️ Clear Sessions</button>
+        <button class="btn" onclick="refreshStatus()">🔄 Refresh</button>
+      </div>
+      <div id="controlResult" class="mt-10" style="color: #66bb6a;"></div>
+    </div>
+
+    <!-- API Endpoints -->
+    <div class="card api-section">
+      <h3>📡 API Endpoints</h3>
+      <div class="api-endpoint">
+        <span class="method method-post">POST</span>
+        <span class="path">/api/process</span>
+        <span class="desc">Process data file</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method method-post">POST</span>
+        <span class="path">/api/assets</span>
+        <span class="desc">Process assets folder</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method method-post">POST</span>
+        <span class="path">/api/search</span>
+        <span class="desc">Search in session data</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method method-post">POST</span>
+        <span class="path">/api/export</span>
+        <span class="desc">Export data (CSV/JSON/HTML)</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method method-get">GET</span>
+        <span class="path">/health</span>
+        <span class="desc">Health check</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method method-get">WS</span>
+        <span class="path">ws://localhost:8080</span>
+        <span class="desc">WebSocket connection</span>
+      </div>
+    </div>
+
+    <!-- Logs -->
+    <div class="card" style="margin-top: 20px;">
+      <h3>📋 Live Logs</h3>
+      <div class="logs" id="logs">
+        <div class="log-entry">
+          <span class="time">[Initializing]</span>
+          <span>Waiting for server connection...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // WebSocket connection
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+    const ws = new WebSocket(`${wsProtocol}//${window.location.host}`)
+    let connected = false
+
+    ws.onopen = () => {
+      connected = true
+      document.getElementById('statusText').textContent = 'Connected'
+      document.getElementById('statusText').style.color = '#66bb6a'
+      addLog('info', 'WebSocket connected successfully')
+      
+      // Request initial status
+      ws.send(JSON.stringify({ type: 'get:status' }))
+    }
+
+    ws.onclose = () => {
+      connected = false
+      document.getElementById('statusText').textContent = 'Disconnected'
+      document.getElementById('statusText').style.color = '#e94560'
+      addLog('error', 'WebSocket disconnected')
+    }
+
+    ws.onerror = (error) => {
+      addLog('error', `WebSocket error: ${error.message || 'Unknown error'}`)
+    }
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data)
+        handleWebSocketMessage(data)
+      } catch (error) {
+        addLog('error', `Invalid message: ${error.message}`)
+      }
+    }
+
+    function handleWebSocketMessage(data) {
+      switch (data.type) {
+        case 'status':
+          updateStats(data.data)
+          break
+        
+        case 'processing:complete':
+          addLog('success', `✅ Processing complete: ${data.data.count} entries`)
+          document.getElementById('controlResult').textContent = 
+            `✅ Processing complete: ${data.data.count} entries (Session: ${data.data.sessionId})`
+          break
+        
+        case 'assets:complete':
+          addLog('success', `✅ Assets processed: ${data.data.summary.successful}/${data.data.summary.totalFiles} files`)
+          document.getElementById('controlResult').textContent = 
+            `✅ Assets processed: ${data.data.summary.successful}/${data.data.summary.totalFiles} files`
+          break
+        
+        case 'stream:complete':
+          addLog('success', `✅ Stream processing: ${data.data.success ? 'Success' : 'Failed'}`)
+          break
+        
+        case 'pong':
+          // Ping response
+          break
+        
+        default:
+          // Unknown message type
+          break
+      }
+    }
+
+    function updateStats(data) {
+      document.getElementById('connections').textContent = data.connections || 0
+      document.getElementById('sessions').textContent = data.sessions || 0
+      
+      if (data.memory) {
+        const mb = (data.memory.heapUsed / 1024 / 1024).toFixed(1)
+        document.getElementById('memory').textContent = `${mb} MB`
+      }
+      
+      if (data.uptime) {
+        const uptime = formatUptime(data.uptime)
+        document.getElementById('uptimeDisplay').textContent = uptime
+        document.getElementById('uptime').textContent = `Uptime: ${uptime}`
+      }
+    }
+
+    function formatUptime(seconds) {
+      const days = Math.floor(seconds / 86400)
+      const hours = Math.floor((seconds % 86400) / 3600)
+      const minutes = Math.floor((seconds % 3600) / 60)
+      const secs = Math.floor(seconds % 60)
+      
+      if (days > 0) return `${days}d ${hours}h ${minutes}m`
+      if (hours > 0) return `${hours}h ${minutes}m ${secs}s`
+      if (minutes > 0) return `${minutes}m ${secs}s`
+      return `${secs}s`
+    }
+
+    function addLog(level, message) {
+      const logs = document.getElementById('logs')
+      const time = new Date().toLocaleTimeString()
+      const entry = document.createElement('div')
+      entry.className = 'log-entry'
+      
+      let levelClass = ''
+      let icon = ''
+      switch (level) {
+        case 'error': levelClass = 'level-error'; icon = '❌'; break
+        case 'warn': levelClass = 'level-warn'; icon = '⚠️'; break
+        case 'success': levelClass = 'level-success'; icon = '✅'; break
+        default: levelClass = 'level-info'; icon = 'ℹ️'
+      }
+      
+      entry.innerHTML = `
+        <span class="time">[${time}]</span>
+        <span class="${levelClass}">${icon} ${message}</span>
+      `
+      
+      logs.appendChild(entry)
+      logs.scrollTop = logs.scrollHeight
+      
+      // Keep only last 100 entries
+      while (logs.children.length > 100) {
+        logs.removeChild(logs.firstChild)
+      }
+    }
+
+    // API Functions
+    async function processData() {
+      document.getElementById('controlResult').textContent = '⏳ Processing...'
+      addLog('info', '⏳ Processing data...')
+      
+      try {
+        const response = await fetch('/api/process', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            inputFile: 'example/Vexorion.html',
+            outputFile: 'output/api_result.txt'
+          })
+        })
+        
+        const result = await response.json()
+        if (result.success) {
+          document.getElementById('controlResult').textContent = 
+            `✅ Processed ${result.count} entries (Session: ${result.sessionId})`
+          addLog('success', `✅ Processed ${result.count} entries`)
+        } else {
+          document.getElementById('controlResult').textContent = `❌ Error: ${result.error}`
+          addLog('error', `❌ Error: ${result.error}`)
+        }
+      } catch (error) {
+        document.getElementById('controlResult').textContent = `❌ Request failed: ${error.message}`
+        addLog('error', `❌ Request failed: ${error.message}`)
+      }
+    }
+
+    async function processAssets() {
+      document.getElementById('controlResult').textContent = '⏳ Processing assets...'
+      addLog('info', '⏳ Processing assets...')
+      
+      try {
+        const response = await fetch('/api/assets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assetsPath: 'assets' })
+        })
+        
+        const result = await response.json()
+        if (result.success) {
+          document.getElementById('controlResult').textContent = 
+            `✅ Processed ${result.summary.successful}/${result.summary.totalFiles} files`
+          addLog('success', `✅ Processed ${result.summary.successful}/${result.summary.totalFiles} files`)
+        } else {
+          document.getElementById('controlResult').textContent = `❌ Error: ${result.error}`
+          addLog('error', `❌ Error: ${result.error}`)
+        }
+      } catch (error) {
+        document.getElementById('controlResult').textContent = `❌ Request failed: ${error.message}`
+        addLog('error', `❌ Request failed: ${error.message}`)
+      }
+    }
+
+    async function clearSessions() {
+      document.getElementById('controlResult').textContent = '⏳ Clearing sessions...'
+      addLog('info', '⏳ Clearing sessions...')
+      
+      try {
+        const response = await fetch('/api/session/all', {
+          method: 'DELETE'
+        })
+        
+        const result = await response.json()
+        if (result.success) {
+          document.getElementById('controlResult').textContent = '✅ Sessions cleared'
+          addLog('success', '✅ Sessions cleared')
+        } else {
+          document.getElementById('controlResult').textContent = `❌ Error: ${result.error}`
+          addLog('error', `❌ Error: ${result.error}`)
+        }
+      } catch (error) {
+        document.getElementById('controlResult').textContent = `❌ Request failed: ${error.message}`
+        addLog('error', `❌ Request failed: ${error.message}`)
+      }
+    }
+
+    function refreshStatus() {
+      if (connected) {
+        ws.send(JSON.stringify({ type: 'get:status' }))
+        addLog('info', '🔄 Status refreshed')
+      }
+    }
+
+    // Auto refresh status every 10 seconds
+    setInterval(() => {
+      if (connected) {
+        ws.send(JSON.stringify({ type: 'get:status' }))
+      }
+    }, 10000)
+
+    // Initial log
+    addLog('info', '🚀 NewVexorion Dashboard loaded')
+    addLog('info', `🔌 Connecting to WebSocket at ${wsProtocol}//${window.location.host}`)
+  </script>
+</body>
+</html>

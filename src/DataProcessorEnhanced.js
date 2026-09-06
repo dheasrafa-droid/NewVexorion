@@ -127,6 +127,9 @@ class DataProcessorEnhanced {
     }
 
     return this.#data.map(row => {
+      if (row && typeof row === 'object' && !Array.isArray(row)) {
+        return row
+      }
       const obj = {}
       this.#headers.forEach((header, index) => {
         obj[header] = row[index] || ''
