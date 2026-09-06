@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members>
+  <member date="2026-09-06" name="Alice Johnson" team="Alpha" role="Engineer" score="95" />
+  <member date="2026-09-06" name="Bob Smith" team="Beta" role="Analyst" score="88" />
+  <member date="2026-09-05" name="Charlie Brown" team="Alpha" role="Designer" score="92" />
+  <member date="2026-09-06" name="Diana Prince" team="Gamma" role="Team Lead" score="98" />
+  <member date="2026-09-06" name="Evan Wright" team="Alpha" role="Developer" score="85" />
+  <member date="2026-09-06" name="Hannah Abbott" team="Alpha" role="DevOps" score="94" />
+</members>

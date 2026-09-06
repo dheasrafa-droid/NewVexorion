@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewVexorion - Data Viewer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NewVexorion</h1>
+      <p class="subtitle">High-performance data processor and viewer by Prasetyo Bayu Widodo</p>
+      <div class="meta-links">
+        <a href="https://github.com/dheasrafa-droid/NewVexorion" target="_blank">GitHub Repository</a>
+        <a href="https://new-vexorion-git-main-ercs-projects-09b1de49.vercel.app/" target="_blank">Live Demo</a>
+        <a href="index-enhanced.html" class="highlight">Enhanced Viewer &rarr;</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="controls">
+        <input type="text" id="filterInput" placeholder="Filter by date (e.g. 2026-09-06)...">
+        <button id="loadBtn">Load & Filter</button>
+      </section>
+
+      <section class="status-bar">
+        <span id="statusText">Ready</span>
+        <span id="counterText">0 records</span>
+      </section>
+
+      <section class="table-container">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Team</th>
+              <th>Role</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="dataBody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

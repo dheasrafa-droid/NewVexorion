@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Grace Hopper",
+    "date": "2026-09-06",
+    "team": "Alpha",
+    "level": "Principal"
+  },
+  {
+    "name": "Ada Lovelace",
+    "date": "2026-09-06",
+    "team": "Beta",
+    "level": "Fellow"
+  }
+]

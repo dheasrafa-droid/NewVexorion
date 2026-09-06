@@ -1,0 +1,49 @@
+{
+  "name": "new-vexorion",
+  "version": "2.1.0",
+  "description": "A high-performance, fluent JavaScript data processing, transformation, validation, and asset pipeline library with interactive data viewer.",
+  "author": "Prasetyo Bayu Widodo",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node example/run.js",
+    "start:full": "node example/run-full.js",
+    "start:enhanced": "node example/run-enhanced.js",
+    "start:assets": "node example/run-assets.js",
+    "start:attributes": "node example/run-attributes.js",
+    "enhanced": "node example/run-enhanced.js",
+    "full": "node example/run-full.js",
+    "assets": "node example/run-assets.js",
+    "attributes": "node example/run-attributes.js",
+    "test": "node test/test.js",
+    "test:full": "node test/test-full.js",
+    "clean": "rm -rf dist server.js output logs",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3",
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "motion": "^12.23.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "@types/express": "^4.17.21"
+  }
+}

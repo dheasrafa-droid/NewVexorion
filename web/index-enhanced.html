@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewVexorion - Data Viewer Enhanced</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NewVexorion <span class="badge">Enhanced</span></h1>
+      <p class="subtitle">Advanced Data Pipeline, Search, Stats & Export by Prasetyo Bayu Widodo</p>
+      <div class="meta-links">
+        <a href="https://github.com/dheasrafa-droid/NewVexorion" target="_blank">GitHub</a>
+        <a href="https://new-vexorion-git-main-ercs-projects-09b1de49.vercel.app/" target="_blank">Live Vercel</a>
+        <a href="index.html">&larr; Standard Viewer</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="controls-panel">
+        <div class="control-group">
+          <label for="dateFilter">Filter Date:</label>
+          <input type="text" id="dateFilter" value="2026-09-06">
+        </div>
+
+        <div class="control-group">
+          <label for="teamFilter">Team:</label>
+          <select id="teamFilter">
+            <option value="">All Teams</option>
+            <option value="Alpha">Alpha</option>
+            <option value="Beta">Beta</option>
+            <option value="Gamma">Gamma</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="searchInput">Search:</label>
+          <input type="text" id="searchInput" placeholder="Search any column...">
+        </div>
+
+        <div class="button-group">
+          <button id="btnExportCSV" class="btn secondary">Export CSV</button>
+          <button id="btnExportJSON" class="btn secondary">Export JSON</button>
+        </div>
+      </section>
+
+      <section class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-value" id="metricTotal">0</div>
+          <div class="metric-label">Matching Members</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="metricAvgScore">0</div>
+          <div class="metric-label">Avg Score</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="metricTopTeam">-</div>
+          <div class="metric-label">Top Team</div>
+        </div>
+      </section>
+
+      <section class="table-container">
+        <table id="dataTable">
+          <thead id="dataHeader">
+            <!-- Headers -->
+          </thead>
+          <tbody id="dataBody">
+            <!-- Rows -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="app-enhanced.js"></script>
+</body>
+</html>

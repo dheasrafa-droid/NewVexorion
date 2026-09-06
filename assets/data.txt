@@ -1,0 +1,7 @@
+Vexorion Member Directory
+=========================
+2026-09-06 | Alice Johnson | Alpha | Engineer
+2026-09-06 | Bob Smith | Beta | Analyst
+2026-09-05 | Charlie Brown | Alpha | Designer
+2026-09-06 | Diana Prince | Gamma | Team Lead
+2026-09-06 | Evan Wright | Alpha | Developer

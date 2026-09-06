@@ -1,0 +1,31 @@
+{
+  "project": "NewVexorion",
+  "repository": "https://github.com/dheasrafa-droid/NewVexorion",
+  "liveDemo": "https://new-vexorion-git-main-ercs-projects-09b1de49.vercel.app/",
+  "author": "Prasetyo Bayu Widodo",
+  "patterns": [
+    "2026-09-06"
+  ],
+  "inputDir": "./example",
+  "outputDir": "./output",
+  "web": {
+    "port": 8080,
+    "title": "NewVexorion Data Viewer"
+  },
+  "csv": {
+    "delimiter": ",",
+    "hasHeader": true
+  },
+  "validation": {
+    "dateFormat": "YYYY-MM-DD",
+    "requiredFields": [
+      "name",
+      "date",
+      "team"
+    ]
+  },
+  "logging": {
+    "level": "info",
+    "file": "logs/app.log"
+  }
+}

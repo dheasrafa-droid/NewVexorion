@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Alice Johnson",
+    "date": "2026-09-06",
+    "team": "Alpha",
+    "role": "Engineer",
+    "score": 95
+  },
+  {
+    "name": "Bob Smith",
+    "date": "2026-09-06",
+    "team": "Beta",
+    "role": "Analyst",
+    "score": 88
+  },
+  {
+    "name": "Charlie Brown",
+    "date": "2026-09-05",
+    "team": "Alpha",
+    "role": "Designer",
+    "score": 92
+  },
+  {
+    "name": "Diana Prince",
+    "date": "2026-09-06",
+    "team": "Gamma",
+    "role": "Team Lead",
+    "score": 98
+  },
+  {
+    "name": "Evan Wright",
+    "date": "2026-09-06",
+    "team": "Alpha",
+    "role": "Developer",
+    "score": 85
+  },
+  {
+    "name": "George Clark",
+    "date": "2026-09-06",
+    "team": "Beta",
+    "role": "Tester",
+    "score": 78
+  },
+  {
+    "name": "Hannah Abbott",
+    "date": "2026-09-06",
+    "team": "Alpha",
+    "role": "DevOps",
+    "score": 94
+  },
+  {
+    "name": "Ian Malcolm",
+    "date": "2026-09-06",
+    "team": "Gamma",
+    "role": "Scientist",
+    "score": 96
+  }
+]
